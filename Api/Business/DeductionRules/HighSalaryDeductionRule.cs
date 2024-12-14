@@ -5,12 +5,12 @@ namespace Api.Business.DeductionRules;
 public class HighSalaryDeductionRule : IDeductionRule
 {
     private readonly decimal _salaryThreshold;
-    private readonly decimal _deductionMultiplier;
+    private readonly decimal _deductionMultiplierPerMonth;
 
-    public HighSalaryDeductionRule(decimal salaryThreshold, decimal deductionMultiplier)
+    public HighSalaryDeductionRule(decimal salaryThreshold, decimal deductionMultiplierPerYear)
     {
         _salaryThreshold = salaryThreshold;
-        _deductionMultiplier = deductionMultiplier;
+        _deductionMultiplierPerMonth = deductionMultiplierPerYear / 12;
     }
     
     public decimal GetDeductionPerMonth(Employee employee)
@@ -18,7 +18,7 @@ public class HighSalaryDeductionRule : IDeductionRule
         decimal deduction = 0;
         if (employee.Salary > _salaryThreshold)
         {
-            deduction = employee.Salary * _deductionMultiplier;
+            deduction = employee.Salary * _deductionMultiplierPerMonth;
         }
         return deduction;
     }

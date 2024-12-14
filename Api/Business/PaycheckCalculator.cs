@@ -25,7 +25,7 @@ public class PaycheckCalculator
         
         // round to nearest cent
         deductionsPerPaycheck = Math.Round(deductionsPerPaycheck, 2);
-        grossEarnings = Math.Round(grossEarnings, 2);
+        grossEarnings = Math.Round(grossEarnings, 2, MidpointRounding.ToZero);
         
         var netEarnings = grossEarnings - deductionsPerPaycheck;
         var paycheck = new Paycheck()

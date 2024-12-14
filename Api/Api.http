@@ -25,3 +25,9 @@ Accept: application/json
 
 ###
 
+@paycheckEmployeeId=3
+GET https://{{host}}/api/v1/paychecks?employeeId={{paycheckEmployeeId}}
+Accept: application/json
+
+###
+

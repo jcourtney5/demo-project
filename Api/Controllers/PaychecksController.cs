@@ -23,14 +23,25 @@ public class PaychecksController : ControllerBase
         _calculator = calcBuilder.Build();
     }
 
-    [SwaggerOperation(Summary = "Gets a sample paycheck for an employee with the given id")]
-    [HttpGet("{id}")]
+    [SwaggerOperation(Summary = "Gets a sample paycheck for the given employeeId")]
+    [HttpGet("")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<ApiResponse<GetPaycheckDto>>> Get(int id)
+    public async Task<ActionResult<ApiResponse<GetPaycheckDto>>> Get([FromQuery] int? employeeId)
     {
+        if (employeeId is null)
+        {
+            var badRequestResult = new ApiResponse<GetPaycheckDto>
+            {
+                Success = false,
+                Error = "employeeId parameter is required",
+            };
+            return BadRequest(badRequestResult);
+        }
+        
         // Get data from EmployeeData abstraction layer
-        var employee = await _data.GetEmployeeByIdAsync(id);
+        var employee = await _data.GetEmployeeByIdAsync(employeeId.Value);
 
         // Check if employee is not found
         if (employee is null)
