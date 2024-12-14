@@ -17,11 +17,23 @@ Paycheck calculator demo project
 **Decision**: Put test data in EmployeeData wrapper class to separate from controllers<br>
 **Why**: Abstracts data from api controllers so can be modified in the future for a real database or external services
 
+**Decision**: Built classes for paycheck calculator, deductions calculator and each deduction rule
+**Why**: Wanted to be able to develop and test each one in isolation and make it expandable for the future
+
+**Decision**: Added unit tests project to test paycheck and deduction classes<br>
+**Why**: The calculations are complex and hard to test all permutation and edge cases at the API level so added unit tests to help with that
+
+**Decision**: PaycheckCalculatorBuilder just manually builds DeductionsCalculator with the hardcoded data<br>
+**Why**: Used the rules and values from the requirements but in production this would need to be data driven and support more rules and configuration
+
 **Decision**: Paycheck calculator is pretty simple right now and returns a "sample" paycheck, not even with a date range yet<br>
-**Why**: Focused on deductions and the basic salary calculation, there are a ton of features still to add to make it fully functional
+**Why**: Focused on deductions and the basic salary calculation from the requirements, there are still a ton of features to add to make it fully functional
+
+**Decision**: Didn't change the port in the Integration Tests which was one of the tasks<br>
+**Why**: Ran out of time but would have liked to look into loading url and port from something like a config file
 
 **Decision**: AgeDeductionRule doesn't take any date range into account in case age changes during the year from one paycheck to the next<br>
-**Why**: Paycheck and PaycheckCalculator didn't support proper date ranges yet so couldn't account for this
+**Why**: Couldn't account for this yet since Paycheck and PaycheckCalculator don't support proper date ranges
 
 ## Things to improve and discuss
 
@@ -35,6 +47,8 @@ Add global API exception handler that returns ApiResponse with list of errors<br
 Add CRUD operations for employees and dependents besides GET calls
 
 Employee and Dependent controllers need paging, filters or ranges in Get API calls since can't return all employees once dataset is large
+
+Unit test names are a bit long, would like to maybe improve them or use a different naming convention
 
 DeductionRule classes maybe should take in an Employee interface or abstraction instead of taking Employee directly
 
@@ -59,6 +73,6 @@ Paycheck calculator needs **a lot** more features to be fully functional
 * Support different modes like biweekly, monthly, hourly
 * Return paychecks with date ranges on each one and use the date range to correctly calculate deductions 
 * Ex: what if they turn 50 half way through the year, deductions need to change from paycheck to paycheck
-  * Support tax calculations and deductions
-  * Support hire date and salary changes throughout the year
-  * Support bonuses, stock awards, vacation days, etc...
+* Support tax calculations and deductions
+* Support hire date and salary changes throughout the year
+* Support bonuses, stock awards, vacation days, etc...
