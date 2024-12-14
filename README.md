@@ -8,29 +8,32 @@ Paycheck calculator demo project
 **Decision**: Didn't update to .NET 8/9 or minimal APIs<br>
 **Why**: Out of scope and would take too long, kept it .NET 6 
 
-**Decision**: Didn't build crud operations to add/edit employees and dependents<br>
-**Why**: Wasn't sure if it was in scope or needed, would take a lot of extra time to build and handle validations and edge cases
+**Decision**: Didn't build crud operations to add/edit employees and their dependents<br>
+**Why**: Wasn't sure if it was in scope or needed, would take a lot of extra time to build all this and handle all the validations and edge cases
 
 **Decision**: Didn't build a UI to view/edit employees, dependents and paychecks<br>
 **Why**: Wasn't sure if it was in scope or needed, would take a lot of extra time to build
 
 **Decision**: Put test data in EmployeeData wrapper class to separate from controllers<br>
-**Why**: Abstracts data from api controllers so can be modified in the future for a real database or external services
+**Why**: Abstracts data from api controllers so can be modified in the future for a real database or external services depending on the design
 
-**Decision**: Built classes for paycheck calculator, deductions calculator and each deduction rule
-**Why**: Wanted to be able to develop and test each one in isolation and make it expandable for the future
+**Decision**: Built separate utility classes for the core paycheck calculations (paycheck calculator, deductions calculator and rules)
+**Why**: Wanted to be able to develop and test each part in isolation and make it expandable for the future since there is a lot more functionality that needs to be added here
 
 **Decision**: Added unit tests project to test paycheck and deduction classes<br>
-**Why**: The calculations are complex and hard to test all permutation and edge cases at the API level so added unit tests to help with that
+**Why**: The calculations are complex and hard to test all combinations and edge cases together at the API level so added unit tests to make sure the logic for each piece is correct
 
-**Decision**: PaycheckCalculatorBuilder just manually builds DeductionsCalculator with the hardcoded data<br>
+**Decision**: Added PaycheckCalculatorBuilder to manually build and assemble the Paycheck and Deductions Calculator classes with the given rules from the requirement<br>
 **Why**: Used the rules and values from the requirements but in production this would need to be data driven and support more rules and configuration
 
-**Decision**: Paycheck calculator is pretty simple right now and returns a "sample" paycheck, not even with a date range yet<br>
+**Decision**: Paycheck and deductions classes directly depend on Employee entity right now<br>
+**Why**: For simplicity in this project, ideally would come up with a better design and everything would be passed as an interface or the needed parameters
+
+**Decision**: Paycheck calculator is pretty simple right now and returns a "sample" paycheck, doesn't even calculate with or return a date range yet<br>
 **Why**: Focused on deductions and the basic salary calculation from the requirements, there are still a ton of features to add to make it fully functional
 
 **Decision**: Didn't change the port in the Integration Tests which was one of the tasks<br>
-**Why**: Ran out of time but would have liked to look into loading url and port from something like a config file
+**Why**: Ran out of time but would have liked to look into loading url and port from something like a config file so it can be changed in different environments
 
 **Decision**: AgeDeductionRule doesn't take any date range into account in case age changes during the year from one paycheck to the next<br>
 **Why**: Couldn't account for this yet since Paycheck and PaycheckCalculator don't support proper date ranges
