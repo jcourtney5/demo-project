@@ -6,9 +6,9 @@ namespace Api.Business;
 public class PaycheckCalculator
 {
     private readonly int _paychecksPerYear;
-    private readonly DeductionsCalculator _deductionsCalculator;
+    private readonly IDeductionsCalculator _deductionsCalculator;
 
-    public PaycheckCalculator(int paychecksPerYear, DeductionsCalculator deductionsCalculator)
+    public PaycheckCalculator(int paychecksPerYear, IDeductionsCalculator deductionsCalculator)
     {
         _deductionsCalculator = deductionsCalculator;
         _paychecksPerYear = paychecksPerYear;
@@ -17,7 +17,7 @@ public class PaycheckCalculator
     public Paycheck CalculatePaycheck(Employee employee)
     {
         // Get deductions per paycheck
-        var deductionsPerMonth = _deductionsCalculator.GetDeductionsPerMonth(employee);
+        var deductionsPerMonth = _deductionsCalculator.GetDeductionPerMonth(employee);
         var deductionsPerPaycheck = (deductionsPerMonth * 12) / _paychecksPerYear;
         
         // Get gross amount before deductions per paycheck

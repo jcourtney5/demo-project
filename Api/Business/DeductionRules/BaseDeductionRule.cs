@@ -4,15 +4,15 @@ namespace Api.Business.DeductionRules;
 
 public class BaseDeductionRule : IDeductionRule
 {
-    private readonly decimal _baseAmount;
+    private readonly decimal _baseAmountPerMonth;
 
-    public BaseDeductionRule(decimal baseAmount)
+    public BaseDeductionRule(decimal baseAmountPerMonth)
     {
-        _baseAmount = baseAmount;
+        _baseAmountPerMonth = baseAmountPerMonth;
     }
     
     public decimal GetDeductionPerMonth(Employee employee)
     {
-        return _baseAmount;
+        return _baseAmountPerMonth;
     }
 }

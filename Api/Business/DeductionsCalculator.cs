@@ -3,7 +3,7 @@ using Api.Models;
 
 namespace Api.Business;
 
-public class DeductionsCalculator
+public class DeductionsCalculator : IDeductionsCalculator
 {
     private readonly List<IDeductionRule> _deductionRules;
 
@@ -12,7 +12,7 @@ public class DeductionsCalculator
         _deductionRules = deductionRules;
     }
 
-    public decimal GetDeductionsPerMonth(Employee employee)
+    public decimal GetDeductionPerMonth(Employee employee)
     {
         decimal deductions = 0;
 

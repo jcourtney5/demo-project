@@ -27,6 +27,9 @@ Paycheck calculator demo project
 * Add high level exception handler that returns ApiResult with list of errors
 * Add CRUD operations for employees and dependents besides GET calls
 * Employee and Dependent controllers need paging, filters or ranges in Get API calls since can't return all employees once dataset is large
+* DeductionRule classes should take Employee in directly, maybe there should be some sort of abstraction or interface
+* Need a lot more validations and error checking everywhere
+  * Ex: Don't allow negative deductions or pay values
 * Deduction rules should be data driven, possibly loaded from database tables, config files, or both
 * Paycheck controller needs better REST API url and parameters
   * Ex: Get paycheck(s) for specific time period
